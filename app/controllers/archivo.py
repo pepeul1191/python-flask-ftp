@@ -14,19 +14,18 @@ class Archivo(Controller):
 		#self.usuarios = self.load_model('usuarios')
 
 	def recibir(self):
-		'''
 		#pprint.pprint(self.request.files['file'].__dict__)
 		file = self.request.files['file']
 		#buffer += open(file, 'rU').read()
 		#print buffer
-		archivo = self.random_word() + '.jpg'
+		archivo = self.random_word() + '.png'
 		file.save(os.path.join('/tmp/', archivo))
 		ftps = FTP_TLS()
 		ftps.connect('192.168.1.26')
 		ftps.sendcmd('USER ftp_user')
 		ftps.sendcmd('PASS ftp_user')
-		ftps.storlines("STOR " + archivo, open('/tmp/' + archivo, 'r'))
+		ftps.storbinary("STOR " + archivo, open('/tmp/' + archivo, 'rb'))
 		ftps.retrlines('LIST')
 		ftps.quit()
-		'''
+			
 		return 'recibir???'
