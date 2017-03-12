@@ -5,8 +5,6 @@
 
 import json
 import urllib
-from bson.json_util import dumps
-from bson.objectid import ObjectId
 
 class Controller:
    # Atributos: NA
@@ -43,14 +41,8 @@ class Controller:
 		rpta['rpta_mensaje'] = rpta_mensaje
 		json.dumps(rpta)
 	
-	def bson_dumps(self, temp):
-		return dumps(temp)
-
 	def json_dumps(self, temp):
 		return json.dumps(temp)
-
-	def to_ObjectId(self, _id):
-		return ObjectId(_id)
 
 	def unquote(self, quote):
 		return urllib.unquote(quote)#.decode('utf8')
