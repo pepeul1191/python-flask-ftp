@@ -18,10 +18,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def index():
 	return 'Error : URI vacía'
 
-@app.route('/<path:path>', methods=['GET', 'POST', 'OPTIONS'])
+@app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
 	rpta = None
-	r = Request(path, request.args)
+	r = Request(path, request.args, request)
 
 	if r.rpta == None:
 		if r.metodo != "":

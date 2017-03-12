@@ -2,8 +2,9 @@
 
 class Request:
    # Atributos: controlador, metodo, argumento
-	def __init__(self, path, params):
+	def __init__(self, path, params, request):
 		self.rpta = None
+		self.request = request
 
 		if len(params) == 0:
 			self.params = False

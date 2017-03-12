@@ -11,6 +11,9 @@ class Controller:
 	def set_params(self, params):
 		self.params = params
 
+	def set_request(self, request):
+		self.request = request
+
 	def load_model (self, modelo):
 		try:
 			module =__import__("app.models." + str(modelo), globals(), locals(), [modelo])

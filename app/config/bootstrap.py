@@ -11,12 +11,14 @@ class Bootstrap:
 		self.rpta = ""
 		self.controlador = request.controlador
 		self.metodo = request.metodo
+		self.request = request
 		argumento = request.argumento
 
 		try:
 			module =__import__("app.controllers." + str(self.controlador), globals(), locals(), [self.controlador])
 			class_ = getattr(module, self.controlador.capitalize())
 			instancia = class_()
+			instancia.set_request(request.request)
 		except ImportError:
 			self.rpta = "ImportError: Método no existe"
 
