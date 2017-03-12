@@ -7,7 +7,6 @@ from app.config.controller import Controller
 import pprint
 import os
 from ftplib import FTP_TLS
-import random, string
 
 class Archivo(Controller):
    # Atributos : 
@@ -29,6 +28,3 @@ class Archivo(Controller):
 		ftps.retrlines('LIST')
 		ftps.quit()
 		return 'recibir???'
-
-	def random_word(self):
-   		return ''.join(random.choice(string.lowercase + string.digits) for i in range(20))
