@@ -9,12 +9,21 @@ import urllib
 class Model:
    # Atributos: NA
 	def __init__(self):
-		self._db = Database()
-		self.db = self._db.get_connection()
+		db = Database()
+		self.connection = db.get_connection()
 		self.last_id = None
 
+	def get_connection(self):
+		return self.connection
+
+	def dict_factory(self, cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+
 	def close(self):
-		self._db.close()
+		self.connection.close()
 
 	def unquote(self, quote):
 		return urllib.unquote(quote).decode('utf8')
