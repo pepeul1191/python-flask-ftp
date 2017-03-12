@@ -53,9 +53,9 @@ class Bootstrap:
 					self.rpta = metodo(*argumento)
 				except AttributeError:
 					self.rpta = "Error: Método no existe"
-		except ArithmeticError:#TypeError:
+		except UnboundLocalError:#ArithmeticError:
 			self.rpta = "TypeError: El número de parámetros no coincide"
-		except ArithmeticError:
+		except UnboundLocalError:#ArithmeticError:
 			pass
 			
 #Fuente : http://stackoverflow.com/questions/4821104/python-dynamic-instantiation-from-string-name-of-a-class-in-dynamically-imported

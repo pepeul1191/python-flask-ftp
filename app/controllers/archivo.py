@@ -14,6 +14,7 @@ class Archivo(Controller):
 		#self.usuarios = self.load_model('usuarios')
 
 	def recibir(self):
+		'''
 		#pprint.pprint(self.request.files['file'].__dict__)
 		file = self.request.files['file']
 		#buffer += open(file, 'rU').read()
@@ -27,4 +28,5 @@ class Archivo(Controller):
 		ftps.storlines("STOR " + archivo, open('/tmp/' + archivo, 'r'))
 		ftps.retrlines('LIST')
 		ftps.quit()
+		'''
 		return 'recibir???'
