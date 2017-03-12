@@ -1,13 +1,13 @@
 # app/config/database.py
 
-from pymongo import MongoClient
+import sqlite3
 
 class Database:
 	def __init__(self):
-		self.cliente = MongoClient('mongodb://localhost:27017')
+		self.cliente = sqlite3.connect('../../db/db_archivos.db')
 
 	def get_connection(self):
-		return self.cliente.db_accesos
+		return self.cliente
 
 	def close(self):
 		self.cliente.close()
