@@ -5,25 +5,20 @@
 
 import sys 
 import json
-
 from flask import Flask, request
-from flask.ext.cors import CORS, cross_origin
-
-from bson.json_util import dumps
-
+from flask_cors  import CORS, cross_origin
 from app.config.request import Request
 from app.config.bootstrap import Bootstrap
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def index():
 	return 'Error : URI vacía'
 
-@app.route('/<path:path>', methods=['GET', 'POST'])
-@cross_origin('*')
+@app.route('/<path:path>', methods=['GET', 'POST', 'OPTIONS'])
 def catch_all(path):
 	rpta = None
 	r = Request(path, request.args)
