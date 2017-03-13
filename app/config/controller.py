@@ -49,7 +49,7 @@ class Controller:
 		return json.dumps(temp)
 
 	def random_word(self):
-   		return ''.join(random.choice(string.lowercase + string.digits) for i in range(20))
+   		return ''.join(random.choice(string.lowercase + string.digits) for i in range(30))
 
 	def unquote(self, quote):
 		return urllib.unquote(quote)#.decode('utf8')

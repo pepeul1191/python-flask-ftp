@@ -9,25 +9,51 @@ import os
 from ftplib import FTP_TLS
 
 class Archivo(Controller):
-   # Atributos : 
-	#def __init__(self):
-		#self.usuarios = self.load_model('usuarios')
-
+   # Atributos : id, nombre, descripcion, nombre_genarado, extension_id
 	def recibir(self):
 		#pprint.pprint(self.request.files['file'].__dict__)
 		file = self.request.files['file']
 		extension = file.filename.split('.')
 		extension = extension[len(extension) -1]
-		archivo = self.random_word() + '.' + extension
+		archivo = self.generar_nombre_no_repetido(extension)
+
 		file.save(os.path.join('/tmp/', archivo))
 		ftps = FTP_TLS()
 		ftps.connect('192.168.1.26')
 		ftps.sendcmd('USER ftp_user')
 		ftps.sendcmd('PASS ftp_user')
 		ftps.storbinary("STOR " + archivo, open('/tmp/' + archivo, 'rb'))
+		id_generado = self.registrar_en_db(archivo, extension)
 		#ftps.retrlines('LIST')
 		ftps.quit()
 		
-		return 'recibir???'
+		return id_generado
 
-	#def generar_nombre(self):
+	def generar_nombre_no_repetido(self, extension):
+		ftps = FTP_TLS()
+		ftps.connect('192.168.1.26')
+		ftps.sendcmd('USER ftp_user')
+		ftps.sendcmd('PASS ftp_user')
+		
+		existe = False
+		nombre_generado = ''
+		while (existe == False):
+			files = []
+			nombre_generado = self.random_word() + '.' + extension
+			print nombre_generado
+			try:
+			    files = ftps.nlst()
+			    if nombre_generado not in files:
+			    	existe = True
+			except ftplib.error_perm, resp:
+			    if str(resp) == "550 No files found":
+			        print "No files in this directory"
+			    else:
+			        raise
+		ftps.quit()
+
+		return nombre_generado
+
+	def registrar_en_db(self, archivo, extension):
+		#TODO... se debe guardar los metadatos del archivo en la tabla 'archivos' y retornar el id genarado de la db
+		return id_generado
