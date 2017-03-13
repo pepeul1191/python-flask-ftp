@@ -16,16 +16,18 @@ class Archivo(Controller):
 	def recibir(self):
 		#pprint.pprint(self.request.files['file'].__dict__)
 		file = self.request.files['file']
-		#buffer += open(file, 'rU').read()
-		#print buffer
-		archivo = self.random_word() + '.png'
+		extension = file.filename.split('.')
+		extension = extension[len(extension) -1]
+		archivo = self.random_word() + '.' + extension
 		file.save(os.path.join('/tmp/', archivo))
 		ftps = FTP_TLS()
 		ftps.connect('192.168.1.26')
 		ftps.sendcmd('USER ftp_user')
 		ftps.sendcmd('PASS ftp_user')
 		ftps.storbinary("STOR " + archivo, open('/tmp/' + archivo, 'rb'))
-		ftps.retrlines('LIST')
+		#ftps.retrlines('LIST')
 		ftps.quit()
-			
+		
 		return 'recibir???'
+
+	#def generar_nombre(self):
