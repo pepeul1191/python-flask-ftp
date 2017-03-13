@@ -8,14 +8,11 @@ import pprint
 
 class Archivos(Model):
    # Atributos : id, nombre, descripcion, nombre_genarado, extension_id
-	def listar(self):
-		rpta = []
-		con = self.get_connection()
-		con.row_factory = self.dict_factory 
-		cur = con.cursor()
-		cur.execute('SELECT * FROM extensiones;')
-		for row in cur.fetchall():
-			rpta.append(row)
-		con.close()
-
-		return rpta
+	def crear(self):
+		'''
+		INSERT INTO archivos (nombre, descripcion, nombre_generado, extension_id) VALUES 
+		( 
+		  'nombre', 'descripcion...adfadfljakldfasdf', 'alkdjfkladsjfkladsjf.png', 
+		  (SELECT id FROM extensiones WHERE extension = "jpg")
+		) 
+		'''
