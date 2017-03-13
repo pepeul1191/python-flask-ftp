@@ -4,7 +4,7 @@
 Instalaciones
 
 	$ sudo apt-get update
-	$ sudo apt-get install python-dev -y sqlite3
+	$ sudo apt-get install python-dev -y sqlite3 libsqlite3-ruby
 	$ sudo apt-get install python-pip
 	$ sudo pip install Flask
 	$ sudo pip install json
@@ -20,3 +20,4 @@ Fuentes:
 - https://flask-cors.readthedocs.io/en/latest/
 - http://stackoverflow.com/questions/19530974/how-can-i-install-sqlite3-to-python
 - https://docs.python.org/2/library/ftplib.html#module-ftplib
+- https://www.sitepoint.com/web-foundations/mime-types-complete-list/
