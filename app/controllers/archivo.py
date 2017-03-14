@@ -11,8 +11,9 @@ from ftplib import FTP_TLS
 class Archivo(Controller):
    # Atributos : id, nombre, descripcion, nombre_genarado, extension_id
 	def recibir(self):
-		#pprint.pprint(self.request.files['file'].__dict__)
 		file = self.request.files['file']
+		nombre = self.params['nombre']
+		descripcion = self.params['descripcion']
 		extension = file.filename.split('.')
 		extension = extension[len(extension) -1]
 		archivo = self.generar_nombre_no_repetido(extension)
@@ -23,7 +24,7 @@ class Archivo(Controller):
 		ftps.sendcmd('USER ftp_user')
 		ftps.sendcmd('PASS ftp_user')
 		ftps.storbinary("STOR " + archivo, open('/tmp/' + archivo, 'rb'))
-		id_generado = self.registrar_en_db(archivo, extension)
+		id_generado = self.registrar_en_db(nombre, descripcion, archivo, extension)
 		#ftps.retrlines('LIST')
 		ftps.quit()
 		
@@ -40,7 +41,7 @@ class Archivo(Controller):
 		while (existe == False):
 			files = []
 			nombre_generado = self.random_word() + '.' + extension
-			print nombre_generado
+			#print nombre_generado
 			try:
 			    files = ftps.nlst()
 			    if nombre_generado not in files:
@@ -54,6 +55,7 @@ class Archivo(Controller):
 
 		return nombre_generado
 
-	def registrar_en_db(self, archivo, extension):
-		#TODO... se debe guardar los metadatos del archivo en la tabla 'archivos' y retornar el id genarado de la db
-		return id_generado
+	def registrar_en_db(self, nombre, descripcion, nombre_generado, extension):
+		archivos = self.load_model('archivos')
+		archivos.crear(nombre, descripcion, nombre_generado, extension)
+		return archivos.last_id

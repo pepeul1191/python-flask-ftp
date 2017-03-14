@@ -11,7 +11,7 @@ class Model:
 	def __init__(self):
 		db = Database()
 		self.connection = db.get_connection()
-		self.last_id = None
+		self.last_id = 0
 
 	def get_connection(self):
 		return self.connection
